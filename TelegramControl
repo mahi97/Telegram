@@ -1,15 +1,23 @@
 #!/usr/bin/env osascript
 
 on run argv
-	set old to  (path to frontmost application as text)
-	tell Application "Telegram 2"
+	set old to (path to frontmost application as text)
+	set telegramApp to "Telegram"
+	set hasVersion to 0
+	if (item 1 of argv as text is equal to "2") then
+		set telegramApp to "Telegram 2"
+		log 100
+		set hasVersion to 1
+	end if 
+	log telegramApp
+	tell Application telegramApp
 		reopen
 		activate
 	end tell
 	set flag to true
 	set counts to 0
-	set endSend to item 2 of argv as number
-	set InputPM to item 1 of argv
+	set endSend to item (2 + hasVersion) of argv as number
+	set InputPM to item (1 + hasVersion) of argv
 	repeat while flag
 		set counts to counts + 1
 		tell application "System Events"
