@@ -4,7 +4,15 @@ on run argv
 	set old to (path to frontmost application as text)
 	set telegramApp to "Telegram"
 	set hasVersion to 0
-	if (item 1 of argv as text is equal to "2") then
+	set msg to "Use the following commands:\n"
+  	set msg to msg & "  telegram [message text] [repeat count]   - Send message text repeat count times\n"
+  	set msg to msg & "  telegram [-h] [--help]                   - Show Help\n"
+  
+	if count of argv is equal to 0 then
+		return msg
+	end if
+
+	if item 1 of argv as text is equal to "2" then
 		set telegramApp to "Telegram 2"
 		log 100
 		set hasVersion to 1
@@ -25,7 +33,7 @@ on run argv
 			keystroke return
 			delay 0.085
 		end tell
-		if (counts) is equal to endSend then set flag to false
+		if counts is equal to endSend then set flag to false
 	end repeat
 	activate application old
 
