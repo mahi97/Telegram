@@ -1,0 +1,24 @@
+#!/usr/bin/env osascript
+
+on run argv
+	set old to  (path to frontmost application as text)
+	tell Application "Telegram 2"
+		reopen
+		activate
+	end tell
+	set flag to true
+	set counts to 0
+	set endSend to item 2 of argv as number
+	set InputPM to item 1 of argv
+	repeat while flag
+		set counts to counts + 1
+		tell application "System Events"
+			keystroke InputPM
+			keystroke return
+			delay 0.085
+		end tell
+		if (counts) is equal to endSend then set flag to false
+	end repeat
+	activate application old
+
+end run
